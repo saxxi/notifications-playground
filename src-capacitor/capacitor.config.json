@@ -1,0 +1,7 @@
+{
+  "appId": "it.somedomain.someproject",
+  "appName": "Notification Playground",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}
