@@ -8,7 +8,7 @@
       </div>
 
       <div class="q-pa-md">
-        <div class="text-h5 q-pu-md">Step 1</div>
+        <div class="text-h5 q-pu-md">Step 2</div>
         <q-btn color="primary" @click="sendNotification">Send Notification</q-btn>
       </div>
 
@@ -17,7 +17,7 @@
 </template>
 <script>
   import 'firebase/messaging'
-  import { configuration } from '@/config/pushNotificationConfig'
+  import { configMessaging } from '@/config/pushNotificationConfig'
 
   export default {
     name: 'PageIndex',
@@ -26,21 +26,22 @@
     },
     mounted () {
       console.log('Now the component has been brought to the DOM');
-      console.log(configuration)
     },
     methods: {
       requestPermissions () {
-        alert('Rquest Push Notification permission here')
+        configMessaging().then((messaging) => {
+          messaging.requestPermission().then(() => {
+            console.log('Notification permission granted.');
 
-        messaging.requestPermission().then(() => {
-          console.log('Notification permission granted.');
-          messaging.getToken().then((token) => {
-            console.log('Got token!', token);
-          })
-        }).catch((err) => {
-          console.log('Unable to get permission to notify.', err);
-        });
-
+            messaging.getToken().then((token) => {
+              console.log('Got token!', token);
+            }).catch((err) => {
+              console.log('other error!', err);
+            });
+          }).catch((err) => {
+            console.log('Unable to get permission to notify.', err);
+          });
+        })
       },
       sendNotification () {
         alert('Send notification here')
