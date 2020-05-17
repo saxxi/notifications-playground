@@ -15,22 +15,36 @@
     </div>
   </q-page>
 </template>
-
 <script>
-export default {
-  name: 'PageIndex',
-  methods: {
-    requestPermissions () {
-      alert('Rquest Push Notification permission here')
-    },
-    sendNotification () {
-      alert('Send notification here')
-    },
-  }
-}
-</script>
-<style lang="stylus" scoped>
-  a {
+  import 'firebase/messaging'
+  import { configuration } from '@/config/pushNotificationConfig'
 
+  export default {
+    name: 'PageIndex',
+    created () {
+      console.log('Here this component has been created');
+    },
+    mounted () {
+      console.log('Now the component has been brought to the DOM');
+      console.log(configuration)
+    },
+    methods: {
+      requestPermissions () {
+        alert('Rquest Push Notification permission here')
+
+        messaging.requestPermission().then(() => {
+          console.log('Notification permission granted.');
+          messaging.getToken().then((token) => {
+            console.log('Got token!', token);
+          })
+        }).catch((err) => {
+          console.log('Unable to get permission to notify.', err);
+        });
+
+      },
+      sendNotification () {
+        alert('Send notification here')
+      },
+    }
   }
-</style>
+</script>

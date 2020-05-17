@@ -1,6 +1,13 @@
 # Notification Playground (notifications-playground)
 
-Notification Playground
+Notification Playground.
+
+Please look at these files:
+
+- `src/boot/pushNotification.js` application boot entry point
+- `src/config/pushNotificationConfig.js` firebase config
+- `src/pages/index.vue` UI page for the user
+- `public/firebase-messaging-sw.js` You can access through http://localhost:8080/statics/firebase-messaging-sw.js
 
 ## Install the dependencies
 ```bash
